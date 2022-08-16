@@ -1,0 +1,89 @@
+﻿<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#idNotifSuccess").hide();
+        $("#idNotifError").hide();
+
+
+        $("#idFormContact").on("submit", function (e) {
+            e.preventDefault();
+            //call external service
+            var url = "/Home/SendNewMessage";
+            var formdata = (window.FormData) ? new FormData(this) : null;
+            var fdata = (formdata !== null) ? formdata : $form.serialize();
+            $("#idSubmitMvt").attr("disabled", true);
+
+            $("#idNotifSuccess").hide();
+            $("#idNotifError").hide();
+            //get authorization keys.
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: fdata,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.exitoso) {
+                        $("#idNotifSuccess").show();
+                    } else {
+                        $("#idNotifError").show();
+                    }
+                    $("#idSubmitMvt").attr("disabled", false);
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log("Error");
+                    $("#idNotifError").show();
+                    $("#idSubmitMvt").attr("disabled", false);
+                }
+            });
+
+        });
+    });
+
+</script>
+
+<div class="container">
+    <div class="alert alert-success" role="alert" id="idNotifSuccess">
+        Se ha guardado la información
+    </div>
+
+    <div class="alert alert-danger" role="alert" id="idNotifError">
+        ¡Ops Algo pasó :(!
+    </div>
+
+    <form id="idFormContact" class="mx-auto" style="width: 400px;">
+        <div class="mb-3">
+            <label for="Nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="Nombre" name="Nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="Correo" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="Correo" name="Correo" aria-describedby="emailHelp" required>
+            <div id="emailHelp" class="form-text">Escriba su correo</div>
+        </div>
+        <div class="mb-3">
+            <label for="Telefono" class="form-label">Telefono</label>
+            <input type="number" class="form-control" id="Telefono" name="Telefono" required>
+        </div>
+
+        <button type="submit" id="idSubmitMvt" class="btn btn-primary">Enviar</button>
+    </form>
+
+
+
+
+</div>
+
+
+
+
