@@ -14,7 +14,7 @@ namespace daniel.Controllers
         string Baseurl = "";
         public async Task<ActionResult> Index()
         {
-            List<> EmpInfo = new List<>();
+            List<PAIS> EmpInfo = new List<PAIS>();
             using (var client = new HttpClient())
             {
                 //Passing service base url
@@ -30,7 +30,7 @@ namespace daniel.Controllers
                     //Storing the response details recieved from web api
                     var EmpResponse = Res.Content.ReadAsStringAsync().Result;
                     //Deserializing the response recieved from web api and storing into the Employee list
-                    EmpInfo = JsonConvert.DeserializeObject<List<>>(EmpResponse);
+                    EmpInfo = JsonConvert.DeserializeObject<List<PAIS>>(EmpResponse);
                 }
                 //returning the list to view
                 return View(EmpInfo);
