@@ -78,7 +78,15 @@
 
         <button type="submit" id="idSubmitMvt" class="btn btn-primary">Enviar</button>
     </form>
+    <script>
 
+  document.addEventListener('DOMContentLoaded', function(){
+    let formulario = document.getElementById('formul');
+    formulario.addEventListener('submit', function() {
+      formulario.reset();
+    });
+  });
+</script>
 
 
 
