@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace daniel.Models
 {
-    public class Api
+    public class api
     {
         public string NombrePais { get; set; }
         public string CodPais { get; set; }
+         }
 
 
-    }
 }
